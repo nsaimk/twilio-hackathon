@@ -1,5 +1,6 @@
 const express = require('express');
 const { Pool } = require('pg');
+const cors = require('cors');
 
 const app = express();
 const PORT = 8000;
@@ -10,6 +11,18 @@ const pool = new Pool({
     database: 'twilio-hackathon',
     password: 'postgres',
     port: 5432,
+});
+
+app.use(cors());
+
+app.get('/product', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM product');
+        res.json(result.rows);
+    } catch (error) {
+        console.error('Error fetching products:', error);
+        res.status(500).send('Server error');
+    }
 });
 
 app.get('/product/:id', async (req, res) => {
