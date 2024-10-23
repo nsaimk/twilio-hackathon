@@ -1,6 +1,8 @@
 const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
+const http = require('http');
+const { Server } = require('socket.io');
 
 const app = express();
 const PORT = 8000;
@@ -13,7 +15,24 @@ const pool = new Pool({
     port: 5432,
 });
 
-app.use(cors());
+const corsOptions = {
+    origin: '*', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+    credentials: true, 
+};
+
+app.use(cors(corsOptions));
+
+app.options('*', cors(corsOptions));
+
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: '*',
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        credentials: true, 
+    },
+});
 
 app.get('/product', async (req, res) => {
     try {
@@ -25,24 +44,30 @@ app.get('/product', async (req, res) => {
     }
 });
 
-app.get('/product/:id', async (req, res) => {
+app.put('/product/:id', async (req, res) => {
     const productId = req.params.id;
 
     try {
-        const result = await pool.query('SELECT * FROM product WHERE id = $1', [productId]);
-        if (result.rows.length > 0) {
-            res.json(result.rows[0]);
+        const result = await pool.query(
+            'UPDATE product SET available = false WHERE id = $1 RETURNING *',
+            [productId]
+        );
+
+        if (result.rowCount > 0) {
+            const product = result.rows[0];
+
+            io.emit('productSold', { product });
+
+            res.status(200).json({ message: 'Product availability updated', product });
         } else {
-            res.status(404).send('Product not found');
+            res.status(404).json({ message: 'Product not found' });
         }
-    } catch (err) {
-        console.error('Error querying the product table', err);
-        res.status(500).send('Database error');
+    } catch (error) {
+        console.error('Error updating product availability:', error);
+        res.status(500).json({ message: 'Server error' });
     }
 });
 
-
-
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
