@@ -6,8 +6,9 @@ function App() {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    const socket = io('https://twilio-hackathon-server.vercel.app');
-
+    const socket = io('https://twilio-hackathon-server.vercel.app', {
+      path: '/socket.io'
+    });
     socket.on('connect', () => {
       console.log('Connected to WebSocket server');
     });
