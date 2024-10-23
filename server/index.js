@@ -43,8 +43,8 @@ const io = new Server(server, {
 
 
 // Twilio configuration
-const twilioAccountSid = 'ACbd59d86a65f56470e43fd2fef2c846a3';
-const twilioAuthToken = 'fcd7bb9f2d81ec428a483f214fb48b6d';
+const twilioAccountSid = process.env.twilioAccountSid;
+const twilioAuthToken = process.env.twilioAuthToken;
 const twilioPhoneNumber = '+447883305429';
 
 const twilioClient = twilio(twilioAccountSid, twilioAuthToken);
