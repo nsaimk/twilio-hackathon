@@ -167,12 +167,13 @@ const http = require('http');
 const { Server } = require('socket.io');
 const twilio = require('twilio');
 const { createClient } = require('@supabase/supabase-js');
+require('dotenv').config();
 
 const app = express();
 const PORT = 8000;
 
-const supabaseUrl = 'https://kczixjvsrjkyymolhiyr.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtjeml4anZzcmpreXltb2xoaXlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk3MDc0NTgsImV4cCI6MjA0NTI4MzQ1OH0.7bHPoLbVUFlIT61LZhyoOsYt3efOadZefieAAN0_vZc';
+const supabaseUrl = process.env.supabaseUrl;
+const supabaseKey = process.env.supabaseKey;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const corsOptions = {
@@ -193,9 +194,9 @@ const io = new Server(server, {
 });
 
 // Twilio configuration
-const twilioAccountSid = 'ACbd59d86a65f56470e43fd2fef2c846a3';
-const twilioAuthToken = 'fcd7bb9f2d81ec428a483f214fb48b6d';
-const twilioPhoneNumber = '+447883305429';
+const twilioAccountSid = process.env.twilioAccountSid;
+const twilioAuthToken = process.env.twilioAuthToken;
+const twilioPhoneNumber = process.env.twilioPhoneNumber;
 
 const twilioClient = twilio(twilioAccountSid, twilioAuthToken);
 
