@@ -5,8 +5,8 @@ const http = require('http');
 const { Server } = require('socket.io');
 
 const app = express();
-const PORT = 8000;
-
+//const PORT = 8000;
+//twiliosaim10
 const pool = new Pool({
     user: 'saim',
     host: 'localhost',
@@ -68,6 +68,8 @@ app.put('/product/:id', async (req, res) => {
     }
 });
 
-server.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+// server.listen(PORT, () => {
+//     console.log(`Server is running on http://localhost:${PORT}`);
+// });
+
+module.exports = app;
