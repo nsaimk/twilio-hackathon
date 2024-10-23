@@ -23,22 +23,22 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 const server = http.createServer(app);
-const io = new Server(server, {
-    cors: {
-        origin: '*',
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        credentials: true
-    },
-});
-
-// const io = require('socket.io')(server, {
+// const io = new Server(server, {
 //     cors: {
 //         origin: '*',
 //         methods: ['GET', 'POST', 'PUT', 'DELETE'],
 //         credentials: true
 //     },
-//     path: '/socket.io'
 // });
+
+const io = require('socket.io')(server, {
+    cors: {
+        origin: '*',
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        credentials: true
+    },
+    path: '/socket.io'
+});
 
 
 
