@@ -37,7 +37,8 @@ const io = require('socket.io')(server, {
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         credentials: true
     },
-    path: '/socket.io'
+    path: '/socket',
+    addTrailingSlash: false
 });
 
 
