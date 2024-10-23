@@ -7,7 +7,7 @@ function App() {
 
   useEffect(() => {
     const socket = io('https://twilio-hackathon-server.vercel.app', {
-      path: '/socket.io'
+      path: '/socket'
     });
 
     socket.on('productSold', (data) => {
