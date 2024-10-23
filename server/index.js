@@ -194,7 +194,7 @@ const io = new Server(server, {
 });
 
 // Twilio configuration
-const twilioAccountSid = process.env.twilioAccountSid;
+const twilioAccountSid = 'ACbd59d86a65f56470e43fd2fef2c846a3';
 const twilioAuthToken = process.env.twilioAuthToken;
 const twilioPhoneNumber = process.env.twilioPhoneNumber;
 
@@ -254,8 +254,8 @@ app.put('/product/:id', async (req, res) => {
 });
 
 
-// server.listen(PORT, () => {
-//     console.log(`Server is running on http://localhost:${PORT}`);
-// });
+server.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
 
-module.exports = app;
+//module.exports = app;
