@@ -9,9 +9,6 @@ function App() {
     const socket = io('https://twilio-hackathon-server.vercel.app', {
       path: '/socket.io'
     });
-    socket.on('connect', () => {
-      console.log('Connected to WebSocket server');
-    });
 
     socket.on('productSold', (data) => {
       console.log('Received productSold event:', data);
