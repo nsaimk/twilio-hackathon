@@ -28,8 +28,10 @@ const io = new Server(server, {
         origin: '*',
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         credentials: true
-    }
+    },
+    path: '/socket.io'
 });
+
 
 // Twilio configuration
 const twilioAccountSid = 'ACbd59d86a65f56470e43fd2fef2c846a3';
