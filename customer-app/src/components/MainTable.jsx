@@ -7,7 +7,7 @@ const MainTable = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8000/product');
+                const response = await fetch('http://twilio-hackathon-server.vercel.app/product');
                 const data = await response.json();
                 setProducts(data);
                 setLoading(false);
@@ -22,7 +22,7 @@ const MainTable = () => {
 
     const handleBuy = async (productId) => {
         try {
-            const response = await fetch(`http://localhost:8000/product/${productId}`, {
+            const response = await fetch(`http://twilio-hackathon-server.vercel.app/product/${productId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
