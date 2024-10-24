@@ -104,8 +104,8 @@ app.put('/product/:id', async (req, res) => {
 });
 
 
-// server.listen(PORT, () => {
-//     console.log(`Server is running on http://localhost:${PORT}`);
-// });
+server.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
 
-module.exports = app;
+//module.exports = app;
